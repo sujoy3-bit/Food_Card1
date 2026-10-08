@@ -47,6 +47,6 @@ function Cart({ setShowCart, increment, decrement, cart }) {
       )}
     </div>
   );
-}a
+}
 
 export default Cart;
