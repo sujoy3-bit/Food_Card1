@@ -1,55 +1,52 @@
-import React from 'react'
+import React from "react";
 
-function MenuCard({item,addToCart}) {
-    // console.log(item);
-  return (
-      <>
-      <div className='grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center px-4 md:px-8 lg:px-12 ' >
-        {item.map((curElem)=>{
-            return (
-               
-                <div className=" w-full max-w-[360px] h-auto max-h-[500px] bg-amber-100 border-2 border-transparent rounded-2xl shadow hover:shadow-2xl transition-all duration-300 p-4 mb-10" key={curElem.id}>
-              <div className=" h-5 w-5 border-2 border-gray-400 rounded-[50%] m-2 flex items-center justify-center font-bold p-3">
-                {curElem.id}
-              </div>
-              <p className="font-semibold  ml-2 uppercase text-gray-700">
-                {curElem.category}
-              </p>
-              <p className="ml-2 text-3xl">{curElem.name}</p>
-              <p className="ml-2 mt-0.5 text-sm line-clamp-7 text-gray-800">
-                {curElem.description}
-              </p>
-              <div className="flex justify-between px-3 mb-0.5 ">
-                <p>------------------------------------</p>
-                <p>READ</p>
-              </div>
-              <div className="flex justify-center items-center mb-10 ">
-                <img
-                  className="w-[200px] h-[150px] hover:scale-105 rounded cursor-pointer"
-                  src={curElem.image}
-                  alt=""
-                />
-              </div>
-              <div className="flex mb-6 justify-evenly">
-                <p className=" text-sm font-bold"> Price : {curElem.price}</p>
-
-                <button  onClick={()=>addToCart(curElem)}className="border-1 border-gray-500 text-sm  font-bold  flex items-center cursor-pointer bg-gray-200  rounded p-1 text-gray-700 hover:bg-green-600 hover:text-gray-200">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-            
-            )
-
-        })}          
-            
-            </div>
-            </>
-          );
-        
-    
-        }
+function Cart({ setShowCart, increment, decrement, cart }) {
+  //   const total =  item.price * item.quantity;
   
 
+  return (
+    <div className="fixed top-0 right-0 h-screen w-90 bg-white shadow-2xl p-5 overflow-y-scroll mt-18 pb-30 ml-10">
+      <div className="flex justify-between mb-5">
+        <h1 className="text-2xl font-bold">SHOPPING CART</h1>
+        <button
+          onClick={() => setShowCart(false)}
+          className="text-xl font-bold cursor-pointer bg-rose-700 text-white rounded px-2"
+        >
+          X
+        </button>
+      </div>
+      {cart.length === 0 ? (
+        <h2 className="text-3xl font-black">CART IS EMPTY</h2>
+      ) : (
+        cart.map((item) => (
+          <div key={item.id} className="border p-3 rounded mb-3 h-auto">
+            <h3 className="font-bold">{item.name}</h3>
+            <p className="text-xl font-bold">{item.price}</p>
 
-export default MenuCard
+            <div className="flex gap-3 item-center mt-2">
+              <button
+                onClick={() => decrement(item.id)}
+                className="bg-red-500 text-white px-2 rounded cursor-pointer"
+              >
+                DECRESE
+              </button>
+              <span className="font-bold text-xl">{item.quantity}</span>
+
+              <button
+                onClick={() => increment(item.id)}
+                className="bg-green-600 text-white px-2 rounded cursor-pointer"
+              >
+                INCRESE
+              </button>
+            </div>
+            <h2 className="text-xl font-bold mt-5">
+              Total:{parseInt(item.price) * item.quantity}
+            </h2>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}a
+
+export default Cart;
